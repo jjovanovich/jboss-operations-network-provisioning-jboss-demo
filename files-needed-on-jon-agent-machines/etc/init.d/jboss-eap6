@@ -1,0 +1,124 @@
+#!/bin/sh
+#
+# JBoss standalone control script
+#
+# chkconfig: - 86 20
+# description: JBoss AS Standalone
+# processname: standalone
+
+### BEGIN INIT INFO
+# Provides: 
+# Required-Start: $syslog $local_fs $network $named
+# Required-Stop: $syslog $local_fs $network
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Short-Description: start and stop JBoss instance
+# Description: JBoss standalone control script
+### END INIT INFO
+
+
+#    Copyright Franklin Piat <fpiat@klabs.be>
+#  
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+JBINSTANCES=/app/middleware/jboss-eap-instances-created-by-jon
+JBSCRIPT=jboss-eap6.sh
+
+
+if [ $# -gt 1 ]; then
+	NAME=$1
+	ACTION=$2
+else
+	# Find the name of the script
+	NAME=`basename $0`
+	if [ ${NAME:0:1} = "S" -o ${NAME:0:1} = "K" ]
+	then
+		NAME=${NAME:3}
+	fi
+	NAME=${NAME##*-}
+
+	ACTION=$1
+fi
+
+# Source function library.
+. /etc/init.d/functions
+
+
+SCRIPTDIR="$JBINSTANCES/$NAME"
+
+if [ ! -e "$SCRIPTDIR/$JBSCRIPT" ]; then
+	echo "Warning: JBoss Instance $NAME doesn't exists or invalid command (try 'status'...)."
+	exit 0
+fi
+
+
+if [ $ACTION == "stop" -a ! -h "$SCRIPTDIR" ]; then
+	LINSTANCE=$NAME
+	PINSTANCE=$NAME
+elif [ -h $SCRIPTDIR ]; then
+	LINSTANCE=$NAME
+	PINSTANCE=$(basename $(readlink $SCRIPTDIR))
+else
+	LINSTANCES=$(find -L $JBINSTANCES -maxdepth 1 -samefile $SCRIPTDIR ! -name $NAME -printf '%f\n')
+	if [ $(echo "$LINSTANCES" | wc -w) -ne 1 ]; then
+		echo "ERROR: multiple logical configurations found $NAME ($(echo $LINSTANCES| tr "\n" " "))"
+		exit 1
+	fi
+	LINSTANCE=$LINSTANCES
+	PINSTANCE=$NAME
+fi
+
+JBOSS_USER=roland
+#JBOSS_USER=$PINSTANCE
+
+JBOSS_LINUX_SLOT=$PINSTANCE
+
+INSTANCE=$LINSTANCE
+#INSTANCE=$PINSTANCE	# au choix !
+
+BIND_ADDR=0.0.0.0
+
+JBOSS_SLOT_ID=$(echo $PINSTANCE | sed -e 's/.*[^0-9]\([0-9]\+\)$/\1/')
+
+if [ ! "$JBOSS_SLOT_ID" ]; then
+        echo "ERROR: can't identify jboss slot number for instance '$PINSTANCE' ($LINSTANCE)"
+fi
+
+do_action() {
+        #echo do_action $JBINSTANCES/$INSTANCE/$JBSCRIPT $1
+        #daemon --user=usrtjbs "$JBINSTANCES/$INSTANCE/$JBSCRIPT $1" &>/dev/null
+        #daemon --user=usrtjbs "$JBINSTANCES/$INSTANCE/$JBSCRIPT $1"
+        su - $JBOSS_USER -c "export JBOSS_USER=$JBOSS_USER;export JBOSS_LINUX_SLOT=$JBOSS_LINUX_SLOT; export BIND_ADDR=$BIND_ADDR; export JBOSS_SLOT_ID=$JBOSS_SLOT_ID ;$JBINSTANCES/$INSTANCE/$JBSCRIPT $1"
+}
+
+case "$ACTION" in
+  start)
+      do_action start
+      ;;
+  stop)
+      do_action stop
+      ;;
+  restart)
+      do_action restart
+      ;;
+  status)
+      do_action status
+      ;;
+  *)
+      ## If no parameters are given, print which are avaiable.
+      echo "Usage: $0 {start|stop|status|restart|reload}"
+      exit 1
+      ;;
+esac
+
