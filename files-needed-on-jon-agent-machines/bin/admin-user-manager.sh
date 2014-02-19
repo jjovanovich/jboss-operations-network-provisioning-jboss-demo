@@ -8,6 +8,6 @@ realm=ManagementRealm
 
 JBOSS_INSTANCE_HOME=/app/middleware/jboss-eap-instances-created-by-jon
 
-encodedPassword=$(echo -n "admin:$realm:$password" | openssl md5 | awk '{print $2}')
-encodedPasswordLine=$(echo "admin=$encodedPassword")
+encodedPassword=$(echo -n "$username:$realm:$password" | openssl md5 | awk '{print $2}')
+encodedPasswordLine=$(echo "$username=$encodedPassword")
 echo -e "\n$encodedPasswordLine" >> $JBOSS_INSTANCE_HOME/$slot/configuration/mgmt-users.properties
