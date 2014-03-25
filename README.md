@@ -61,6 +61,10 @@ JBOSS_INSTANCE_HOME=/app/middleware/jboss-eap-instances-created-by-jon
 
 # Switch over to script	README-helper-script.sh !!!
 
+# Stopping JBoss instances (only works if sudo step has been done)
+cd /app/middleware/jboss-eap-instances-created-by-jon/usrjbsXY/
+.jon-script-jboss-eap6.sh restart
+
 # Access URLs
 have a look into folder :
 /app/middleware/jboss-eap-instances-created-by-jon/

@@ -890,7 +890,7 @@ function getJbossInstanceOnMachine(jbossInstanceName, machineName)
 
 /**
  * add script server to JON inventory
- * e.g createSlotManagerScriptServer("vtjbs03.retraite.lan")
+ * e.g createSlotManagerScriptServer("roland.cdg.redhat.com")
  */
 function createSlotManagerScriptServer(machineName) {
 
@@ -914,7 +914,7 @@ function createSlotManagerScriptServer(machineName) {
 
 /**
  * executes script  /srv/jboss/tools/jboss-slot-manager.sh on machineName with passedInArgument as parameter
- * e.g executeSlotManagerScriptServer("vtjbs03.retraite.lan", "get-all-free-slots")
+ * e.g executeSlotManagerScriptServer("roland.cdg.redhat.com", "get-all-free-slots")
  *
  * @param  machineName
  * @param  passedInArgument : either ["get-free-slot" , "get-all-free-slots" , "get-all-slots-used-and-free"]
