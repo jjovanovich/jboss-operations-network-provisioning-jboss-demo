@@ -1,4 +1,4 @@
-export GIT_REPO_DIR=/app/jon/presales-demo-jon-jboss-operations-network-provisioning-jboss
+export GIT_REPO_DIR=/git/jboss-operations-network-provisioning-jboss-demo
 
 ---------------------------- Set up JON provisioning ----------------------
 # ssh on the machine this script has been stored to
