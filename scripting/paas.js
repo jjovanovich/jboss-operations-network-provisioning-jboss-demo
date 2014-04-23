@@ -58,12 +58,12 @@ function getJBossStartScriptArgs() {
 
 // e.g. jonadmin
 function getJBossUserUsedByJON() {
-	return "roland";
+	return "jboss";
 }
 
 // e.g. /srv/jboss/tools/jboss-slot-manager.sh
 function getJbossSlotManagerScript() {
-	return "/home/roland/bin/jboss-slot-manager.sh";
+	return "/home/jboss/bin/jboss-slot-manager.sh";
 }
 
 /**
@@ -71,7 +71,7 @@ function getJbossSlotManagerScript() {
  */
 function getJbossVaultHomeDir(jbossInstanceName)
 {
-	var jbossVaultHomeDir = "/app/middleware/jboss-eap-instances-created-by-jon/" + jbossInstanceName + "/vault/data";
+	var jbossVaultHomeDir = "/app/jboss-eap-instances-created-by-jon/" + jbossInstanceName + "/vault/data";
 	return jbossVaultHomeDir;
 }
 
@@ -80,7 +80,7 @@ function getJbossVaultHomeDir(jbossInstanceName)
  */
 function getJbossInstancesHomeDir()
 {
-	return "/app/middleware/jboss-eap-instances-created-by-jon";
+	return "/app/jboss-eap-instances-created-by-jon";
 }
 
 /**
@@ -88,7 +88,7 @@ function getJbossInstancesHomeDir()
  */
 function getJBossStartScriptURL(jbossInstanceName)
 {
-	var jbossStartScript = "/app/middleware/jboss-eap-instances-created-by-jon/" + jbossInstanceName + "/jon-script-jboss-eap6.sh";
+	var jbossStartScript = "/app/jboss-eap-instances-created-by-jon/" + jbossInstanceName + "/jon-script-jboss-eap6.sh";
 	return jbossStartScript;
 }
 
@@ -103,7 +103,10 @@ function getJbossEngineHomeDir()
 //	return "/app/middleware/jboss-eap-6.1.0/jboss-eap-6.1.0";
 
 	// for JDG6.2
-	return "/app/middleware/jboss-datagrid-6.2.0/jboss-datagrid-6.2.0-server";
+//	return "/app/middleware/jboss-datagrid-6.2.0/jboss-datagrid-6.2.0-server";
+
+        // for EAP6.2	
+	return "/app/jboss";
 	
 }
 
@@ -112,7 +115,7 @@ function getJbossEngineHomeDir()
  */
 function getJbossLogHomeDir()
 {
-	return "/app/middleware/jboss-eap-instances-created-by-jon/logs/jboss";
+	return "/app/jboss-eap-instances-created-by-jon/logs/jboss";
 }
 
 /**
@@ -120,7 +123,7 @@ function getJbossLogHomeDir()
  */
 function getJbossDataHomeDir()
 {
-	return "/app/middleware/jboss-eap-instances-created-by-jon/data/jboss";
+	return "/app/jboss-eap-instances-created-by-jon/data/jboss";
 }
 
 /**
@@ -128,7 +131,7 @@ function getJbossDataHomeDir()
  */
 function getJbossToolsHomeDir()
 {
-	return "/home/roland/bin/";
+	return "/home/jboss/bin/";
 }
 
 /**
@@ -156,7 +159,7 @@ function getJbossMultiCastAddress()
  */
 function getJbossdeploymentLinuxuser()
 {
-	return "roland";
+	return "jboss";
 }
 
 /***********************************************************************************/
