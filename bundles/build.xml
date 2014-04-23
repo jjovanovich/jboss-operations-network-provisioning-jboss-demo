@@ -8,6 +8,9 @@
 		<ant antfile="src/JDG/6.2.0/build.xml" target="dist" inheritall="false">
 			<property name="dist.dir" value="${dist.dir}" />
 		</ant>
+		<ant antfile="src/EAP/6.2.0/build.xml" target="dist" inheritall="false">
+			<property name="dist.dir" value="${dist.dir}" />
+		</ant>
 	</target>
 	<target name="clean">
 		<delete>

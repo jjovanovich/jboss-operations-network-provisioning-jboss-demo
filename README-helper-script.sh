@@ -1,10 +1,12 @@
-export GIT_REPO_DIR=/data/git-repos/presales-demo-jon-jboss-operations-network-provisioning-jboss/
+export GIT_REPO_DIR=/app/jon/presales-demo-jon-jboss-operations-network-provisioning-jboss
 
 ---------------------------- Set up JON provisioning ----------------------
 # ssh on the machine this script has been stored to
-export JON_AGENT_MACHINE_NAME=roland.cdg.redhat.com
-export JON_CLI_HOME=/app/middleware/jon-server/jon-server-3.2.0/rhq-remoting-cli-4.9.0.JON320GA
-export RHQ_CLI_JAVA_HOME=/etc/alternatives/java_sdk_1.7.0_openjdk/
+export JON_AGENT_MACHINE_NAME=localhost
+export JON_CLI_HOME=/app/jon/rhq-remoting-cli-4.9.0.JON320GA
+#export RHQ_CLI_JAVA_HOME=/etc/alternatives/java_sdk_1.7.0_openjdk/
+export RHQ_CLI_JAVA_HOME=/etc/alternatives/java_sdk_1.6.0/
+
 export RHQ_CLI_JAVA_OPTS="-Xms64m -Xmx512m -Djava.net.preferIPv4Stack=true"
 export JON_SCRIPT_HOME=$GIT_REPO_DIR/scripting
 export JON_BUNDLE_HOME=$GIT_REPO_DIR/bundles
