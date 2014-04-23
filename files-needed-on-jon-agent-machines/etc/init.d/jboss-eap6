@@ -32,8 +32,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-JBINSTANCES=/app/middleware/jboss-eap-instances-created-by-jon
-JBSCRIPT=jboss-eap6.sh
+# loading variables JBINSTANCES, JBSCRIPT & JBOSS_USER
+. /etc/jboss-config
+# JBOSS_USER is hard coded (could be set by slot on line 85)
 
 
 if [ $# -gt 1 ]; then
@@ -79,7 +80,6 @@ else
 	PINSTANCE=$NAME
 fi
 
-JBOSS_USER=roland
 #JBOSS_USER=$PINSTANCE
 
 JBOSS_LINUX_SLOT=$PINSTANCE

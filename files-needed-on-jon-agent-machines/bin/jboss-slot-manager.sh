@@ -5,7 +5,9 @@
 # get-all-free-slots --> returns a comma seperated list of all free slots
 # get-all-slots-used-and-free --> returns a comma seperated list of all existing slots (used and free)
 
-JBINSTANCES=/app/middleware/jboss-eap-instances-created-by-jon/
+# loading variables JBINSTANCES
+. /etc/jboss-config
+
 INSTTEMPLATE="usrjbs[0-9][0-9]"
 
 # get-free-slot
