@@ -25,8 +25,7 @@ ant
 cd $GIT_REPO_DIR/scripting
 
 ### create JBoss instance bundle (if it already exists : change version number in $GIT_REPO_DIR/bundles/src/EAP/6.1.0/jboss-profile/deploy.xml accordingly)
-./create-bundle.sh "$JON_BUNDLE_HOME/dist/EAP-6.1.0-jboss-profile.zip" "EAP-6.1.0-jboss-profile"
-./create-bundle.sh "$JON_BUNDLE_HOME/dist/JDG-6.2.0-jboss-profile.zip" "JDG-6.2.0-jboss-profile"
+./create-bundle.sh "$JON_BUNDLE_HOME/dist/EAP-6.2.0-jboss-profile.zip" "EAP-6.2.0-jboss-profile"
 
 
 #---------- JON GUI
