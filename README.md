@@ -2,12 +2,16 @@ jboss-operations-network-provisioning-jboss-demo
 ================================================
 Scripting toolset to set up JBoss EAP 6 provioning with JBoss Operations Network
 
+
+
+
 # Prerequisits
 - Use a init.d based OS (Fedora, RHEL, ...)
 - JON 3.2.0 instance running on your machines
 - JBoss EAP 6.1.0 engine
 - JBoss JDG 6.2.0 engine
 - Apache with mod_cluster installed (optional)
+
 
 # Machine setup
 
