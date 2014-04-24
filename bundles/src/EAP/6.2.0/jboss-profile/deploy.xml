@@ -20,7 +20,7 @@
 	@@JBOSSDEPLOYMENT_LINUXUSER@@ - only used in deploy.xml to create appropriate rights on deployment file system (to be able to change the password manager)
 	-->
 
-	<rhq:bundle name="eap-6.2.0_jboss-profile" version="2014.03.25.18.20" description="eap-6.2.0_jboss-profile">
+	<rhq:bundle name="eap-6.2.0_jboss-profile" version="2014.04.24.10.20" description="eap-6.2.0_jboss-profile">
 		<!-- properties -->
 		<rhq:input-property name="JBOSS_INSTANCE_NAME" type="string" required="true"
 			description="Instance name (ex.: dev1-poc1-01) "
@@ -121,6 +121,34 @@
 		<chown file="${JBOSS_DATA_HOME}/${JBOSS_INSTANCE_NAME}" owner="${NEXT_LINUX_SLOT}" />
 		<symlink link="${JBOSS_INSTANCES_HOME}/${JBOSS_INSTANCE_NAME}/app-data" resource="${JBOSS_DATA_HOME}/${JBOSS_INSTANCE_NAME}" overwrite="true" failonerror="false"/>
 
+		<!-- TODO redefine file access : this is quick and dirty -->
+		<!-- Only linux user JON is allowed to read / execute those files -->
+		<chmod perm="u+x">
+			<fileset dir="${JBOSS_INSTANCES_HOME}/${JBOSS_INSTANCE_NAME}">
+				<include name="jon-script-jboss-eap6.sh"/>
+			</fileset>
+		</chmod>
+		<chmod perm="go-rwx">
+			<fileset dir="${JBOSS_INSTANCES_HOME}/${JBOSS_INSTANCE_NAME}">
+				<include name="jboss-eap6.conf"/>
+				<include name="jboss-eap6.sh"/>
+				<include name="jon-script-jboss-eap6.sh"/>
+			</fileset>
+		</chmod>
+		<!-- Only users ${NEXT_LINUX_SLOT} and JON are allowed to read / write /execute the file -->
+		<chmod perm="ug+rx">
+			<fileset dir="${JBOSS_INSTANCES_HOME}/${JBOSS_INSTANCE_NAME}">
+				<include name="jboss-eap6.sh"/>
+				<include name="jboss-eap6.conf"/>
+			</fileset>
+		</chmod>
+		
+		<!-- Only users ${NEXT_LINUX_SLOT} and JON are allowed to read / write /execute the file -->
+		<chmod perm="ug+rw">
+			<fileset dir="${JBOSS_INSTANCES_HOME}/${JBOSS_INSTANCE_NAME}/configuration">
+				<include name="mgmt-users.properties"/>
+			</fileset>
+		</chmod>
 		<!-- the admin-user-manager.sh sets up the admin user that is used by JON to connect to the created JBoss -->
 		<exec executable="${JBOSS_TOOLS_HOME}/admin-user-manager.sh" failonerror="true">
 			<arg line=" ${NEXT_LINUX_SLOT} ${JBOSS_ADMIN_USER} ${JBOSS_ADMIN_PW}"/>
