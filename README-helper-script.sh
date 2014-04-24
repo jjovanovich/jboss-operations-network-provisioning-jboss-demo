@@ -54,8 +54,8 @@ cd $GIT_REPO_DIR/scripting
 # TODO when having the same name "dev1-eap6-01" on two different machines / groups --> PROBLEM !!!
 
 # if there are multiple versions of the bundle "eap-6.1.0_jboss-profile" --> the latest is chosen (chosen via the alphanumeric name of the version!!!!)
-./create-new-jboss-profile-full-automatic.sh "dev1-eap6-01"  "clusterEnabled" "eap-6.1.0_jboss-profile" "static-group-$JON_AGENT_MACHINE_NAME"
-(adapt line "// TODO : implement JBoss switcher" in $JON_SCRIPT_HOME/paas.js)
+./create-new-jboss-profile-full-automatic.sh "dev1-eap6-01"  "clusterEnabled" "eap-6.2.0_jboss-profile" "static-group-$JON_AGENT_MACHINE_NAME"
+#(adapt line "// TODO : implement JBoss switcher" in $JON_SCRIPT_HOME/paas.js)
 ./create-new-jboss-profile-full-automatic.sh "dev1-jdg6-01"  "clusterEnabled" "jdg-6.2.0_jboss-profile" "static-group-$JON_AGENT_MACHINE_NAME"
 
 
