@@ -5,7 +5,10 @@
 		<ant antfile="src/EAP/6.2.0/build.xml" target="dist" inheritall="false">
 			<property name="dist.dir" value="${dist.dir}" />
 		</ant>
-	</target>
+		<ant antfile="src/EAP/application-deployment-EAP6/build.xml" target="dist" inheritall="false">
+			<property name="dist.dir" value="${dist.dir}" />
+		</ant>
+		</target>
 	<target name="clean">
 		<delete>
 			<fileset dir="dist">
