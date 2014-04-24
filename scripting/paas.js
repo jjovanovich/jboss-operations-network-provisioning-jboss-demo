@@ -525,6 +525,101 @@ function importResouceViaTypeAndKey(ressourceType, ressourceKey)
 }
 
 /**
+ * Deploys a generic bundle to a group.
+ *
+ * @param bundleName Name of the bundle
+ * @param groupName Name of the group
+ * @param destinationName Name of the destination
+ * @param destinationDesc Description of the destination
+ * @param destinationLocation The location of the destination
+ * @param bundleVersionUsr
+ * @param deploymentDesc Description of the deployment
+ *
+ */
+function deployGenericBundle(bundleName, groupName, destinationName, destinationDesc, destinationLocation, bundleVersionUsr, deploymentDesc) {
+  // Find the bundle
+  var bundle = getBundle(bundleName);
+
+  if (bundle == null){
+    throw "Bundle with name \"" + bundleName + "\" does not exist";
+  }
+
+  if (!bundleVersionExists(bundleName,bundleVersionUsr)){
+    throw "Bundle with name \"" + bundleName + "\" and version "+bundleVersionUsr+" does not exist." 
+  }
+ 
+  // Find the group to be used
+  var group = findGroup(groupName);
+
+  if (group == null){
+    throw "Group "+groupName+" could not be found."
+  }
+
+  // Ensure destionation exists
+  var destination = null;  
+  var bdc = new BundleDestinationCriteria();
+  bdc.addFilterGroupId(group.id);
+  bdc.addFilterBundleId(bundle.id);
+
+  var destinations = BundleManager.findBundleDestinationsByCriteria(bdc);
+  if (!destinations.isEmpty()) { 
+    for ( var i = 0; i < destinations.size(); i++) { 
+      var dest = destinations.get(i);
+      var name = dest.name;
+      var dir = dest.deployDir;
+        
+      if (dir.equalsIgnoreCase(destinationLocation)) { 
+        destination = dest;
+        break;
+      }
+    }
+  }
+
+  if (destination == null) {
+    destination = BundleManager.createBundleDestination(bundle.id,destinationName, destinationDesc, "Profile Directory",
+     							     destinationLocation, group.id);
+  }
+  
+  // deploy
+  var bundleversionIndex = (bundleVersionUsr - 1.0) ;
+  var versionToDeploy = bundle.getBundleVersions().get(bundleversionIndex);
+  var deployment = BundleManager.createBundleDeployment(versionToDeploy.getId(), destination.getId(), deploymentDesc, new Configuration);
+  
+  BundleManager.scheduleBundleDeployment(deployment.getId(), true);
+}
+
+/**
+ * deploy a JON bundle
+ * @param destination - e.g. "/tmp/temp"
+ * @param jbossInstanceHome - e.g.  "/app/jboss-eap-instance-created-by-jon
+ * @param jbossProfiles - e.g. "eap-6.1.0_jboss-profile"
+ * @param bundleName - e.g. "guess-1.0"
+ * @param groupName - e.g. "static-group-linux-boxes"
+ *
+ * e.g deployApplication("/tmp/temp", "/app/jboss-eap-instance-created-by-jon", "dev1-poc1-01,dev1-poc1-02", "guess-1.0" , "static-group-linux-boxes")
+ */
+function deployApplication(destination, jbossInstanceHome, jbossProfiles, bundleName, groupName)
+{
+	// get the bundle object
+	var bundle = getBundle(bundleName);
+	var linuxMachineGroup = getGroup(groupName, getLinuxType(), "nothing" , false);
+	
+	// create configuration that replaces the variables of the JON bundle (at deployment)
+	// find help on properties here : https://docs.jboss.org/author/display/RHQ45/JBossAS7+-+Standalone+Server 
+	
+	// get or create the destination
+	var destination = getDestination(destination, bundle, linuxMachineGroup, destination);
+	var config = new Configuration() ;
+	config.put( new PropertySimple("JBOSS_INSTANCE_HOME", jbossInstanceHome));
+	config.put( new PropertySimple("JBOSS_CONFS", jbossProfiles));
+	
+	// get last version of bundle
+	var bundleVersion = getLastBundleVersion(bundle);
+	deployBundle(destination, bundleVersion, config, "deploying " + bundleName, true)
+}
+
+
+/**
  * Coming from
  * https://access.redhat.com/site/documentation/en-US/JBoss_Operations_Network/3.1/html/Admin_Managing_Resource_Configuration/drift-alerts-script.html
  * 
