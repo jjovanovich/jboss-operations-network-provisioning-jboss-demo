@@ -95,10 +95,10 @@ start() {
   if [ ! -z "$JBOSS_USER" ]; then
     if [ -r /etc/rc.d/init.d/functions ]; then
       # if you want to change this you will have to adapt the JON profile bundle
-      LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT -c $JBOSS_CONFIG -b 127.0.0.1 -bmanagement 127.0.0.1 $EXTRA_START_OPTS  2>&1 > $JBOSS_CONSOLE_LOG &
+      LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT -c $JBOSS_CONFIG $EXTRA_START_OPTS  2>&1 > $JBOSS_CONSOLE_LOG &
     else
        # if you want to change this you will have to adapt the JON profile bundle
-      "LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT -c $JBOSS_CONFIG -b 127.0.0.1 -bmanagement 127.0.0.1 $EXTRA_START_OPTS " 2>&1 > $JBOSS_CONSOLE_LOG &
+      "LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT -c $JBOSS_CONFIG $EXTRA_START_OPTS " 2>&1 > $JBOSS_CONSOLE_LOG &
     fi
   fi
 
