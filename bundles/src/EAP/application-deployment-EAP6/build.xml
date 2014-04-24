@@ -1,0 +1,26 @@
+<project name="EAP-6.2.0 application" default="dist" basedir=".">
+    <description>EAP-6.2.0 application</description>
+	<property name="dist.dir" value="../../dist"/>
+	  <target name="dist" depends="application" description="generate the bundles" >
+	  	<move todir="${dist.dir}" overwrite="true">
+	  		<fileset dir="./">
+	  			<include name="*.zip"/>
+	  		</fileset>
+		</move>
+	  	<echo>EAP-6.2.0 application created</echo>
+	  </target>
+	  <target name="application" description="generate the application bundle" >
+	    <zip destfile="./application/data.zip">
+	    	<fileset dir="./application/data">
+	    		<include name="**"/>
+			</fileset>
+	    </zip>
+	    <zip destfile="./application-deployment-EAP6.zip">
+	    	<fileset dir="./application">
+	    		<include name="data.zip"/>
+	    		<include name="*.xml"/>
+			</fileset>
+	    </zip>
+	    <delete file="./application/data.zip" />
+	  </target> 
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="guess-1.0" default="main" xmlns:rhq="antlib:org.rhq.bundle"   xmlns:ac="antlib:net.sf.antcontrib">
+
+	
+    <rhq:bundle name="guess-1.0" version="1.0" description="guess application">
+		<!-- properties -->
+		<rhq:input-property name="JBOSS_INSTANCE_HOME" type="string" required="true"
+			description="JBoss instance home directory. It's where the EAP instances are deployed to"
+			defaultValue="/app/jboss-eap-instances-created-by-jon" />    	
+		<rhq:input-property name="JBOSS_CONFS" type="string" required="true"
+			description="Comma separated list of JBoss Configurations you want to deployments into (ex.: dev1-eap6-01,dev1-eap6-02)"
+			defaultValue="dev1-eap6-03" />
+
+    	<rhq:deployment-unit name="appserver"  postinstallTarget="postinstall" manageRootDir="false">
+	       <rhq:archive name="data.zip" ></rhq:archive>
+        </rhq:deployment-unit>
+
+    </rhq:bundle>
+
+	
+    <target name="main" />
+
+	
+    <target name="postinstall">
+    	<ac:for param="CONF" list="${JBOSS_CONFS}">
+    	  <sequential>
+    	  	<copy todir="${JBOSS_INSTANCE_HOME}/@{CONF}/deployments" >
+    	  		<fileset dir="${rhq.deploy.dir}">
+    	  			<include name="guess.war.bak"/>
+    	  		</fileset>
+    	  	</copy>
+    	  	<move file="${JBOSS_INSTANCE_HOME}/@{CONF}/deployments/guess.war.bak" tofile="${JBOSS_INSTANCE_HOME}/@{CONF}/deployments/guess.war"/>
+    	  </sequential>
+    	</ac:for>
+    </target>
+	
+	
+</project> 
