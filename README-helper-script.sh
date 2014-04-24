@@ -28,8 +28,7 @@ cd $GIT_REPO_DIR/scripting
 ./create-bundle.sh "$JON_BUNDLE_HOME/dist/EAP-6.2.0-jboss-profile.zip" "EAP-6.2.0-jboss-profile"
 
 ./create-bundle.sh "$JON_BUNDLE_HOME/dist/application-deployment-EAP6.zip" "application-deployment-EAP6"
-./deploy-generic-bundle.sh 
-
+./deploy-application.sh "/tmp/temp2" "/app/jboss-eap-instances-created-by-jon/" "dev1-eap6-03" "guess-1.0" "static-group-localhost"
 
 #---------- JON GUI
 #Check if the new linux machine (and it's JON agent) appears in the Discovery Queue, if so import the 'RHQ agent'
@@ -57,7 +56,7 @@ cd $GIT_REPO_DIR/scripting
 # TODO when having the same name "dev1-eap6-01" on two different machines / groups --> PROBLEM !!!
 
 # if there are multiple versions of the bundle "eap-6.1.0_jboss-profile" --> the latest is chosen (chosen via the alphanumeric name of the version!!!!)
-./create-new-jboss-profile-full-automatic.sh "dev1-eap6-03"  "clusterEnabled" "eap-6.2.0_jboss-profile" "static-group-$JON_AGENT_MACHINE_NAME"
+./create-new-jboss-profile-full-automatic.sh "dev1-poc1-01"  "clusterEnabled" "eap-6.2.0_jboss-profile" "static-group-$JON_AGENT_MACHINE_NAME"
 #(adapt line "// TODO : implement JBoss switcher" in $JON_SCRIPT_HOME/paas.js)
 ./create-new-jboss-profile-full-automatic.sh "dev1-jdg6-01"  "clusterEnabled" "jdg-6.2.0_jboss-profile" "static-group-$JON_AGENT_MACHINE_NAME"
 

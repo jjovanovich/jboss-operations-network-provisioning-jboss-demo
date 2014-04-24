@@ -20,7 +20,7 @@
 	@@JBOSSDEPLOYMENT_LINUXUSER@@ - only used in deploy.xml to create appropriate rights on deployment file system (to be able to change the password manager)
 	-->
 
-	<rhq:bundle name="eap-6.2.0_jboss-profile" version="2014.04.24.11.20" description="eap-6.2.0_jboss-profile">
+	<rhq:bundle name="eap-6.2.0_jboss-profile" version="2014.04.24.10.20" description="eap-6.2.0_jboss-profile">
 		<!-- properties -->
 		<rhq:input-property name="JBOSS_INSTANCE_NAME" type="string" required="true"
 			description="Instance name (ex.: dev1-poc1-01) "

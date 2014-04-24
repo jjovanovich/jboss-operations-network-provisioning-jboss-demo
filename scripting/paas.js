@@ -609,6 +609,7 @@ function deployApplication(destination, jbossInstanceHome, jbossProfiles, bundle
 	
 	// get or create the destination
 	var destination = getDestination(destination, bundle, linuxMachineGroup, destination);
+
 	var config = new Configuration() ;
 	config.put( new PropertySimple("JBOSS_INSTANCE_HOME", jbossInstanceHome));
 	config.put( new PropertySimple("JBOSS_CONFS", jbossProfiles));
