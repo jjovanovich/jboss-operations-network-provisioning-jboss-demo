@@ -32,6 +32,16 @@
         <extension module="org.jboss.as.webservices"/>
         <extension module="org.jboss.as.weld"/>
     </extensions>
+		<system-properties>
+				<property name="jvmRoute"
+				value="@@rhq.system.hostname@@-@@JBOSS_INSTANCE_NAME@@" />
+				<property name="jboss.node.name"
+				value="@@rhq.system.hostname@@-@@JBOSS_INSTANCE_NAME@@" />
+				<!-- the jboss.modcluster.proxylist points to the Apache address (if multiple, 
+				comma-separated list) -->
+				<property name="jboss.modcluster.proxylist" value="@@rhq.system.hostname@@:10001" />
+				<property name="jboss.cluster.name.prefix" value="@@JBOSS_CLUSTER_NAME_PREFIX@@" />
+		</system-properties>
     <management>
         <security-realms>
 	<!-- the HTTP interface is used by JON to connect to JBoss (to avoid Denial of service on LDAP via JON). Do not change the name "ManagementRealm" as the JON EAP plugin uses it -->
