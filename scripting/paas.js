@@ -354,6 +354,32 @@ function addMachineToGroup(machineName, groupName)
 }
 
 /**
+* Adds a machine (OS) to a group
+*
+* @param jbossName Name of the machine (OS)
+* @param groupName              Name the group
+*/
+function addJBossToGroup(machineName, jbossInstanceName, groupName)
+{
+  
+	var jboss = getJbossInstanceOnMachine(jbossInstanceName, machineName);
+
+  if (jboss == null){
+    throw "JBoss instance " + jbossInstanceName + " was not found."
+  }
+
+  var group = findGroup(groupName);
+
+  if (group == null){
+    throw "Group \"" + groupName + "\" was not found."
+  }
+
+  ResourceGroupManager.addResourcesToGroup(group.getId(),[jboss.getId()]);
+}
+
+
+
+/**
  * Schedules an operation such as start,stop or restart on a Web-AppServer
  * TODO : this has to be reimplemented, as not used today
  *
@@ -952,6 +978,7 @@ function getMachine(machineName)
 		return machineList.get(0);
 	}
 }
+
 
 /**
  * get hold of a jbossInstace object
