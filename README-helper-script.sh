@@ -47,7 +47,7 @@ cd $GIT_REPO_DIR/scripting
 
 
 # Create new JON group (JBoss bundles can only be deployed into groups)
-./create-static-linux-group.sh "static-group-$JON_AGENT_MACHINE_NAME"
+./create-static-linux-group.sh "static-group-$JON_AGENT_MACHINE_NAME" "linux"
 #./delete-group.sh "static-group-$JON_AGENT_MACHINE_NAME"
 
 ./create-static-linux-group.sh "static-group-jboss" "jboss"

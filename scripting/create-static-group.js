@@ -11,7 +11,7 @@ if( resourceGroup != null ) {
     var resourceType = getJBossEAP6Type();
   }
 	else {
-		return resourceType = getLinuxType();
+		var resourceType = getLinuxType();
 	}
 
 createGroup(groupName, resourceType);
