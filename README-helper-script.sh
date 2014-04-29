@@ -56,6 +56,12 @@ cd $GIT_REPO_DIR/scripting
 # Add linux machine to created group
 ./add-linux-instance-to-group.sh "$JON_AGENT_MACHINE_NAME" "static-group-$JON_AGENT_MACHINE_NAME"
 
+
+# Add jboss to created group
+./add-jboss-instance-to-group.sh "$JON_AGENT_MACHINE_NAME" "dev1-poc1-06(EAP6)" "static-group-jboss"
+
+
+
 #------------ Here we start to deploy new JBoss servers (this will be executed by the JON agents)  --------- #
 
 # TODO when having the same name "dev1-eap6-01" on two different machines / groups --> PROBLEM !!!

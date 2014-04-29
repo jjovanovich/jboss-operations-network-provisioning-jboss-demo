@@ -359,7 +359,7 @@ function addMachineToGroup(machineName, groupName)
 * @param jbossName Name of the machine (OS)
 * @param groupName              Name the group
 */
-function addJBossToGroup(machineName, jbossInstanceName, groupName)
+function addJbossToGroup(machineName, jbossInstanceName, groupName)
 {
   
 	var jboss = getJbossInstanceOnMachine(jbossInstanceName, machineName);
@@ -826,7 +826,7 @@ function addAutoDiscoveredJBossOnSpecificMachineToJonInventory(machineName, jbos
 		// oldName = "EAP (0.0.0.0:10390)"
 		var oldName = importedJboss.getName();
 		// newName = "dev1-poc1-1" 
-		importedJboss.setName(jbossInstanceName + " (EAP6)");
+		importedJboss.setName(jbossInstanceName + "(EAP6)");
 		importedJboss.name;
 		importedJboss = ResourceManager.updateResource(importedJboss);
 
